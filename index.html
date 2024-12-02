@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جدول تشكيل الفرق</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72, #0e1c34); /* اللون المتدرج للخلفية */
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+        .adidas-bar {
+            background: #fff;
+            height: 5px;
+            width: 80px;
+            margin: 10px auto 20px auto;
+        }
+        .btn {
+            display: block;
+            margin: 0 auto 20px auto;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #ff8c00, #ffc04d); /* لون متدرج للزر */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(255, 140, 0, 0.5);
+        }
+        .table-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+        .table-container {
+            width: 45%;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+            color: #000;
+        }
+        .icon-container {
+            text-align: center;
+            font-size: 50px;
+            padding: 10px 0;
+            background: linear-gradient(90deg, #00c6ff, #0072ff); /* لون متدرج للأيقونة */
+            color: #fff;
+        }
+        .table-container h2 {
+            text-align: center;
+            margin: 10px 0;
+            font-size: 18px;
+            color: #000;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        thead {
+            background: linear-gradient(90deg, #1e3c72, #2a5298); /* لون متدرج للرأس */
+            color: #fff;
+        }
+        th, td {
+            text-align: center;
+            padding: 15px;
+            font-size: 16px;
+        }
+        tbody tr:nth-child(even) {
+            background: #f3f3f3;
+        }
+        tbody tr:hover {
+            background: #e0e0e0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>جدول تشكيل الفرق</h1>
+    <div class="adidas-bar"></div>
+    <button class="btn" onclick="generateTeams()">توليد عشوائياً</button>
+
+    <div id="tables" class="table-grid"></div>
+
+    <script>
+        const players = ["عثمان", "خالد", "أحمد", "رزق الله", "مشاري", "مهند"];
+
+        // Function to shuffle array
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to generate unique teams for each stage
+        function generateTeams() {
+            let usedPairs = new Set();
+            let tablesHTML = '';
+
+            for (let i = 0; i < 5; i++) {
+                let availablePlayers = [...players];
+                let team1 = [];
+                let team2 = [];
+                let team3 = [];
+
+                // Generate team 1
+                while (team1.length < 2) {
+                    const pair = availablePlayers.slice(0, 2).sort().join('-');
+                    if (!usedPairs.has(pair)) {
+                        team1 = availablePlayers.splice(0, 2);
+                        usedPairs.add(pair);
+                    } else {
+                        shuffle(availablePlayers);
+                    }
+                }
+
+                // Generate team 2
+                while (team2.length < 2) {
+                    const pair = availablePlayers.slice(0, 2).sort().join('-');
+                    if (!usedPairs.has(pair)) {
+                        team2 = availablePlayers.splice(0, 2);
+                        usedPairs.add(pair);
+                    } else {
+                        shuffle(availablePlayers);
+                    }
+                }
+
+                // Generate team 3
+                team3 = availablePlayers;
+
+                tablesHTML += `
+                    <div class="table-container">
+                        <div class="icon-container">🎾</div>
+                        <h2>المرحلة ${i + 1}</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>الفريق</th>
+                                    <th>اللاعب 1</th>
+                                    <th>اللاعب 2</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الفريق 1</td>
+                                    <td>${team1[0]}</td>
+                                    <td>${team1[1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>الفريق 2</td>
+                                    <td>${team2[0]}</td>
+                                    <td>${team2[1]}</td>
+                                </tr>
+                                <tr>
+                                    <td>الفريق 3</td>
+                                    <td>${team3[0]}</td>
+                                    <td>${team3[1]}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+            }
+
+            document.getElementById('tables').innerHTML = tablesHTML;
+        }
+
+        // Generate initial teams on page load
+        generateTeams();
+    </script>
+</body>
+</html>
