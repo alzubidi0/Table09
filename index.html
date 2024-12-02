@@ -9,7 +9,7 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background: linear-gradient(135deg, #1e3c72, #0e1c34); /* اللون المتدرج للخلفية */
+            background: linear-gradient(135deg, #1e3c72, #0e1c34);
             color: #fff;
         }
         h1 {
@@ -27,7 +27,7 @@
             display: block;
             margin: 0 auto 20px auto;
             padding: 10px 20px;
-            background: linear-gradient(90deg, #ff8c00, #ffc04d); /* لون متدرج للزر */
+            background: linear-gradient(90deg, #ff8c00, #ffc04d);
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -46,7 +46,8 @@
             gap: 20px;
         }
         .table-container {
-            width: 45%;
+            width: 100%;
+            max-width: 300px; /* أقصى عرض للجداول */
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -58,7 +59,7 @@
             text-align: center;
             font-size: 50px;
             padding: 10px 0;
-            background: linear-gradient(90deg, #00c6ff, #0072ff); /* لون متدرج للأيقونة */
+            background: linear-gradient(90deg, #00c6ff, #0072ff);
             color: #fff;
         }
         .table-container h2 {
@@ -72,13 +73,13 @@
             width: 100%;
         }
         thead {
-            background: linear-gradient(90deg, #1e3c72, #2a5298); /* لون متدرج للرأس */
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
             color: #fff;
         }
         th, td {
             text-align: center;
-            padding: 15px;
-            font-size: 16px;
+            padding: 10px;
+            font-size: 14px;
         }
         tbody tr:nth-child(even) {
             background: #f3f3f3;
@@ -86,6 +87,24 @@
         tbody tr:hover {
             background: #e0e0e0;
             cursor: pointer;
+        }
+
+        /* تحسين التناسق للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .table-grid {
+                gap: 10px; /* تقليل المسافة بين الجداول */
+            }
+            .btn {
+                font-size: 14px; /* تصغير حجم الزر */
+                padding: 8px 16px;
+            }
+            th, td {
+                font-size: 12px; /* تقليل حجم النص */
+                padding: 8px;
+            }
+            .icon-container {
+                font-size: 40px; /* تصغير حجم الأيقونة */
+            }
         }
     </style>
 </head>
